@@ -3,9 +3,9 @@ Test module for ipm.cppy
 
 For testing problemsFileName.json from problems folder:
 
-  Assign {problemsFileName}.json to the problemsFileName variable in the tests.py
+  1. Assign {problemsFileName}.json to the problemsFileName variable in the tests.py
     
-  Run:
+  2. Run:
   ```
     python test.py
   ```
