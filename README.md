@@ -17,3 +17,5 @@ Generate new problems by running:
 
 # References:
 ## [Lecture 17: Interior Point Methods](https://www.cs.princeton.edu/courses/archive/fall18/cos521/Lectures/lec17.pdf)
+## [Lecture 17 — October 28, 2014](http://people.seas.harvard.edu/~cs224/fall14/lec/lec17.pdf)
+
