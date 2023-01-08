@@ -27,7 +27,8 @@ def read_problems(json_file):
         problem["bounds"] = [(0, None) for i in problem["bounds"]]
     return problems
 
-problems = read_problems("problems_01-08-2023_15-56-10")
+problemsFileName = "problems_01-08-2023_15-56-10"
+problems = read_problems(problemsFileName)
 
 sum = 0
 count = 0
