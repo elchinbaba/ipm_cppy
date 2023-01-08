@@ -15,5 +15,5 @@ Generate new problems by running:
   ```
 #### Be sure that scipy package is installed to your local machine
 
-#References:
-##[Lecture 17: Interior Point Methods](https://www.cs.princeton.edu/courses/archive/fall18/cos521/Lectures/lec17.pdf)
+# References:
+## [Lecture 17: Interior Point Methods](https://www.cs.princeton.edu/courses/archive/fall18/cos521/Lectures/lec17.pdf)
