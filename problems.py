@@ -29,6 +29,7 @@ problems = [
     }
 ]
 
+
 def generate_problem():
     n = random.randint(2, 5)
     ub = random.randint(1, 2)
@@ -50,16 +51,18 @@ def generate_problem():
         "bounds": bounds
     }
 
+
 def create_problems():
-    problems = []
-    for i in range(1000):
-        problems.append(generate_problem())
-    
+    probs = []
+    for i in range(250):
+        probs.append(generate_problem())
+
     json_object = json.dumps({
-        "problems": problems
+        "problems": probs
     }, indent=4)
-    
-    with open("problems/problems"+datetime.now().strftime("_%m-%d-%Y_%H-%M-%S")+".json", "w+") as outfile:
+
+    with open("problems/problems" + datetime.now().strftime("_%m-%d-%Y_%H-%M-%S") + ".json", "w+") as outfile:
         outfile.write(json_object)
+
 
 create_problems()
