@@ -27,7 +27,7 @@ def read_problems(json_file):
         problem["bounds"] = [(0, None) for i in problem["bounds"]]
     return problems
 
-problemsFileName = "problems_01-08-2023_15-56-10"
+problemsFileName = "problems_01-10-2023_15-28-03"
 problems = read_problems(problemsFileName)
 
 sum = 0
@@ -61,7 +61,7 @@ for i in range(len(problems)):
         sum += abs(statistics.fmean(solutions[count][0]-solutions[count][1]))
         count += 1
 
-        print(count, sum / count)
+        print("iteration: " + str(count) + ", " + str(i), ", average difference between solutions: " + str(sum / count))
     except BaseException as error:
         print(i, error)
         continue

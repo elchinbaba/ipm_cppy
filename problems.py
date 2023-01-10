@@ -45,8 +45,8 @@ def generate_problem():
         "c": c,
         "A_ub": A_ub,
         "b_ub": b_ub,
-        "A_eq": A_eq,
-        "b_eq": b_eq,
+        "A_eq": [],
+        "b_eq": [],
         "bounds": bounds
     }
 
