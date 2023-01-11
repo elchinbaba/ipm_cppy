@@ -3,7 +3,7 @@
 
 The method gives result with 0.1 average error on 97% probability in well-defined (x_i >= 0, A_i >= b >= 0) inequality constraint problems.
 
-It is advised to limit the tested problems number on 500 due to memory allocation issue.
+## It is advised to limit the tested problems number on 500 due to memory allocation issue.
 
 Be sure that python and scipy package is installed to your machine
 
