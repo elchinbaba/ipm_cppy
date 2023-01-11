@@ -1,5 +1,11 @@
 # ipm_cppy
-Test module for ipm.cppy
+# Test module for ipm.cppy
+
+The method gives result with $10^(-1)$ average error on 97.5% probability in well-defined ($x_i >= 0, A_i >= b >= 0$) inequality constraint problems as you can test.
+
+It is advised to limit the tested problems number on 500 due to memory allocation issue.
+
+Be sure that python and scipy package is installed to your local machine
 
 For testing problemsFileName.json from problems folder:
 
@@ -13,7 +19,6 @@ Generate new problems by running:
   ```
     python problems.py
   ```
-##### Be sure that python and scipy package is installed to your local machine
 
 # References:
 ## [Lecture 17: Interior Point Methods](https://www.cs.princeton.edu/courses/archive/fall18/cos521/Lectures/lec17.pdf)
