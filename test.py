@@ -11,17 +11,6 @@ def has_huge_difference(solutions):
     return False
 
 
-def has_same_value(sol):
-    if len(sol) == 1:
-        return False
-
-    for value in sol:
-        if value != sol[0]:
-            return False
-
-    return True
-
-
 def read_problems(json_file):
     with open("problems/" + json_file + ".json", 'r') as openfile:
         json_object = json.load(openfile)
@@ -57,7 +46,7 @@ for i in range(len(problems)):
             method="interior-point"
         ).x)
 
-        if has_huge_difference(solution) or has_same_value(solution[1]):
+        if has_huge_difference(solution):
             continue
 
         sum += abs(statistics.fmean(solution[0] - solution[1]))
