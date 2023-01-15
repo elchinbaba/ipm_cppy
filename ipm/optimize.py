@@ -4,7 +4,7 @@ class OptimizeResult:
     def __init__(self, result):
         self.x = result
 
-def linprog(c, A_ub, b_ub, A_eq=[], b_eq=[], bounds=[], method=""):
+def linprog(c, A_ub=[], b_ub=[], A_eq=[], b_eq=[], bounds=[], method=""):
     if method == 'interior-point':
         for i in range(len(A_ub)):
             for j in range(len(A_ub[i])):
@@ -31,3 +31,18 @@ def linprog(c, A_ub, b_ub, A_eq=[], b_eq=[], bounds=[], method=""):
     else:
         print("Currently only Interior Point Method is supported.")
         return None
+
+def goal(A_eq, b_eq):
+    c = [0 for i in range(len(A_eq[0]))] + [1, 1]
+    
+    A_eq[0] += [1, -1]
+    for i in range(1, len(A_eq)):
+        A_eq[i] += [0, 0]
+    
+    bounds = [(0, None) for i in range(len(c) - 2)] + [(0, None), (0, None)]
+
+    optimized_result = linprog(c, A_ub=[], b_ub=[], A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='interior-point')
+    optimized_result.x.pop()
+    optimized_result.x.pop()
+
+    return optimized_result
