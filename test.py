@@ -20,7 +20,7 @@ def read_problems(json_file):
     return problems
 
 
-problemsFileName = "problems_01-10-2023_16-59-43"
+problemsFileName = "problems_01-12-2023_11-53-58"
 problems = read_problems(problemsFileName)
 
 sum = 0
@@ -28,15 +28,17 @@ count = 0
 for i in range(len(problems)):
     problem = problems[i]
     try:
-        solution = (sci_linprog(
-            c=problem["c"],
-            A_ub=problem["A_ub"],
-            b_ub=problem["b_ub"],
-            A_eq=problem["A_eq"],
-            b_eq=problem["b_eq"],
-            bounds=problem["bounds"],
-            method="interior-point"
-        ).x, ipm_linprog(
+        solutions = (
+        #     sci_linprog(
+        #     c=problem["c"],
+        #     A_ub=problem["A_ub"],
+        #     b_ub=problem["b_ub"],
+        #     A_eq=problem["A_eq"],
+        #     b_eq=problem["b_eq"],
+        #     bounds=problem["bounds"],
+        #     method="interior-point"
+        # ).x,
+         ipm_linprog(
             c=problem["c"],
             A_ub=problem["A_ub"],
             b_ub=problem["b_ub"],
@@ -46,14 +48,16 @@ for i in range(len(problems)):
             method="interior-point"
         ).x)
 
-        if has_huge_difference(solution):
-            continue
 
-        sum += abs(statistics.fmean(solution[0] - solution[1]))
-        count += 1
+        print(solutions)
+        # if has_huge_difference(solutions):
+        #     continue
 
-        print("iteration: " + str(count) + " over " + str(i + 1),
-              ", average difference between solutions: " + str(sum / count))
+        # sum += abs(statistics.fmean(solutions[0] - solutions[1]))
+        # count += 1
+
+        # print("iteration: " + str(count) + " over " + str(i + 1),
+        #       ", average difference between solutions: " + str(sum / count))
     except BaseException as error:
         print(i, error)
         continue

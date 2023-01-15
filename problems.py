@@ -44,11 +44,11 @@ def generate_problem():
 
     return {
         "c": c,
-        "A_ub": A_ub,
-        "b_ub": b_ub,
-        "A_eq": [],
-        "b_eq": [],
-        "bounds": bounds
+        "A_ub": [],
+        "b_ub": [],
+        "A_eq": A_eq,
+        "b_eq": b_eq,
+        "bounds": []
     }
 
 
