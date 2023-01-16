@@ -1,4 +1,5 @@
 from ipm.source import optimize
+import copy
 
 class OptimizeResult:
     def __init__(self, result):
@@ -8,9 +9,9 @@ def linprog(c, A_ub=[], b_ub=[], A_eq=[], b_eq=[], bounds=[], method=""):
     if method == 'interior-point':
         for i in range(len(A_ub)):
             for j in range(len(A_ub[i])):
-                A_ub[i][j] *= -1
+                A_ub[i][j] *= -1.0
         for i in range(len(b_ub)):
-            b_ub[i] *= -1
+            b_ub[i] *= -1.0
 
         for eq in A_eq:
             A_ub.append(eq)
@@ -33,15 +34,17 @@ def linprog(c, A_ub=[], b_ub=[], A_eq=[], b_eq=[], bounds=[], method=""):
         return None
 
 def goal(A_eq, b_eq):
-    c = [0 for i in range(len(A_eq[0]))] + [1, 1]
-    
-    A_eq[0] += [1, -1]
-    for i in range(1, len(A_eq)):
-        A_eq[i] += [0, 0]
-    
-    bounds = [(0, None) for i in range(len(c) - 2)] + [(0, None), (0, None)]
+    A_eq_copy = copy.deepcopy(A_eq)
 
-    optimized_result = linprog(c, A_ub=[], b_ub=[], A_eq=A_eq, b_eq=b_eq, bounds=bounds, method='interior-point')
+    c = [0.0 for i in range(len(A_eq_copy[0]))] + [1.0, 1.0]
+    
+    A_eq_copy[0] += [1.0, -1.0]
+    for i in range(1, len(A_eq_copy)):
+        A_eq_copy[i] += [0.0, 0.0]
+    
+    bounds = [(0.0, None) for i in range(len(c) - 2)] + [(0.0, None), (0.0, None)]
+
+    optimized_result = linprog(c, A_ub=[], b_ub=[], A_eq=A_eq_copy, b_eq=b_eq, bounds=bounds, method='interior-point')
     optimized_result.x.pop()
     optimized_result.x.pop()
 

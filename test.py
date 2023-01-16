@@ -61,15 +61,26 @@ def test_ordinary_problems(problems_file_name):
             continue
 
 def test_goal_problems(problems_file_name):
-    # A = [
-    #     [0, 0.33, 0.67, 1, 1, 0.5, 0],
-    #     [1, 1, 1, 1, 1, 1, 1],
-    #     [1.5, 1.83, 2.17, 2.5, 3, 3.5, 4]
-    # ]
+    problems = [
+        # {
+        #     "A_eq":  [
+        #         [0, 0.33, 0.67, 1, 1, 0.5, 0],
+        #         [1, 1, 1, 1, 1, 1, 1],
+        #         [1.5, 1.83, 2.17, 2.5, 3, 3.5, 4]
+        #     ],
+        #     "b_eq": [0.5, 1, 2.66]
+        # },
+        {
+            "A_eq":  [
+                [0.0, 0.33, 0.67, 1.0, 1.0, 0.5, 0.0],
+                [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+                [2.0, 2.33, 2.67, 3.0, 4.0, 4.5, 5.0]
+            ],
+            "b_eq": [0.05, 1.0, 3.37]
+        }
+    ]
 
-    # b = [0.5, 1, 2.6]
-
-    problems = read_problems(problems_file_name)
+    # problems = read_problems(problems_file_name)
 
     for i in range(len(problems)):
         problem = problems[i]
@@ -77,9 +88,11 @@ def test_goal_problems(problems_file_name):
         A = problem["A_eq"]
         b = problem["b_eq"]
 
-        result = goal(A, b).x
+        for i in range(50):
+            result = goal(A, b).x
 
-        print([([sum([A[k][j]*result[j] for j in range(len(result))]) for k in range(len(A))][i], b[i]) for i in range(len(b))])
+            # print(result)
+            print([([sum([A[k][j]*result[j] for j in range(len(result))]) for k in range(len(A))][i], b[i]) for i in range(len(b))])
 
 problemsFileName = "problems_goal_01-16-2023_03-38-09"
 
