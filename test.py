@@ -80,19 +80,32 @@ def test_goal_problems(problems_file_name):
         }
     ]
 
-    # problems = read_problems(problems_file_name)
+    problems = read_problems(problems_file_name)
 
+    count = 0
     for i in range(len(problems)):
         problem = problems[i]
 
         A = problem["A_eq"]
         b = problem["b_eq"]
 
-        for i in range(50):
+        j = 0
+        while True:
+            if j == 5:
+                result = None
+                break
+
             result = goal(A, b).x
 
-            # print(result)
-            print([([sum([A[k][j]*result[j] for j in range(len(result))]) for k in range(len(A))][i], b[i]) for i in range(len(b))])
+            if abs(sum([[sum([A[o][l]*result[l] for l in range(len(result))]) for o in range(len(A))][k] - b[k] for k in range(len(b))]))/len(b) < 0.1:
+                count += 1
+                break
+
+            j += 1
+        
+        print(result)
+    
+    print(count)
 
 problemsFileName = "problems_goal_01-16-2023_03-38-09"
 
