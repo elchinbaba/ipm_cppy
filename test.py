@@ -1,4 +1,4 @@
-from ipm.optimize import linprog as ipm_linprog
+from ipm.optimize import linprog as ipm_linprog, goal
 from sci.optimize import linprog as sci_linprog
 import statistics
 import json
@@ -11,17 +11,6 @@ def has_huge_difference(solutions):
     return False
 
 
-def has_same_value(sol):
-    if len(sol) == 1:
-        return False
-
-    for value in sol:
-        if value != sol[0]:
-            return False
-
-    return True
-
-
 def read_problems(json_file):
     with open("problems/" + json_file + ".json", 'r') as openfile:
         json_object = json.load(openfile)
@@ -31,40 +20,93 @@ def read_problems(json_file):
     return problems
 
 
-problemsFileName = "problems_01-10-2023_16-59-43"
-problems = read_problems(problemsFileName)
+def test_ordinary_problems(problems_file_name):
+    problems = read_problems(problems_file_name)
 
-sum = 0
-count = 0
-for i in range(len(problems)):
-    problem = problems[i]
-    try:
-        solution = (sci_linprog(
-            c=problem["c"],
-            A_ub=problem["A_ub"],
-            b_ub=problem["b_ub"],
-            A_eq=problem["A_eq"],
-            b_eq=problem["b_eq"],
-            bounds=problem["bounds"],
-            method="interior-point"
-        ).x, ipm_linprog(
-            c=problem["c"],
-            A_ub=problem["A_ub"],
-            b_ub=problem["b_ub"],
-            A_eq=problem["A_eq"],
-            b_eq=problem["b_eq"],
-            bounds=problem["bounds"],
-            method="interior-point"
-        ).x)
+    sum = 0
+    count = 0
+    for i in range(len(problems)):
+        problem = problems[i]
+        try:
+            solutions = (
+                sci_linprog(
+                c=problem["c"],
+                A_ub=problem["A_ub"],
+                b_ub=problem["b_ub"],
+                A_eq=problem["A_eq"],
+                b_eq=problem["b_eq"],
+                bounds=problem["bounds"],
+                method="interior-point"
+            ).x,
+            ipm_linprog(
+                c=problem["c"],
+                A_ub=problem["A_ub"],
+                b_ub=problem["b_ub"],
+                A_eq=problem["A_eq"],
+                b_eq=problem["b_eq"],
+                bounds=problem["bounds"],
+                method="interior-point"
+            ).x)
 
-        if has_huge_difference(solution) or has_same_value(solution[1]):
+            if has_huge_difference(solutions):
+                continue
+
+            sum += abs(statistics.fmean(solutions[0] - solutions[1]))
+            count += 1
+
+            print("iteration: " + str(count) + " over " + str(i + 1),
+                ", average difference between solutions: " + str(sum / count))
+        except BaseException as error:
+            print(i, error)
             continue
 
-        sum += abs(statistics.fmean(solution[0] - solution[1]))
-        count += 1
+def test_goal_problems(problems_file_name):
+    problems = [
+        # {
+        #     "A_eq":  [
+        #         [0, 0.33, 0.67, 1, 1, 0.5, 0],
+        #         [1, 1, 1, 1, 1, 1, 1],
+        #         [1.5, 1.83, 2.17, 2.5, 3, 3.5, 4]
+        #     ],
+        #     "b_eq": [0.5, 1, 2.66]
+        # },
+        {
+            "A_eq":  [
+                [0.0, 0.33, 0.67, 1.0, 1.0, 0.5, 0.0],
+                [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+                [2.0, 2.33, 2.67, 3.0, 4.0, 4.5, 5.0]
+            ],
+            "b_eq": [0.05, 1.0, 3.37]
+        }
+    ]
 
-        print("iteration: " + str(count) + " over " + str(i + 1),
-              ", average difference between solutions: " + str(sum / count))
-    except BaseException as error:
-        print(i, error)
-        continue
+    problems = read_problems(problems_file_name)
+
+    count = 0
+    for i in range(len(problems)):
+        problem = problems[i]
+
+        A = problem["A_eq"]
+        b = problem["b_eq"]
+
+        j = 0
+        while True:
+            if j == 5:
+                result = None
+                break
+
+            result = goal(A, b).x
+
+            if abs(sum([[sum([A[o][l]*result[l] for l in range(len(result))]) for o in range(len(A))][k] - b[k] for k in range(len(b))]))/len(b) < 0.1:
+                count += 1
+                break
+
+            j += 1
+        
+        print(result)
+    
+    print(count)
+
+problemsFileName = "problems_goal_01-16-2023_03-38-09"
+
+test_goal_problems(problemsFileName)
