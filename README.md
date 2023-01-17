@@ -1,10 +1,6 @@
 # ipm_cppy
 # Test module for ipm.cppy
 
-The method gives result with 0.1 average error on 97% probability in well-defined (x_i >= 0, A_i >= b >= 0) inequality constraint problems.
-
-## !!!It is advised to limit the testing problems number on 500 due to memory allocation issue!!!
-
 Be sure that python and scipy package is installed to your machine
 
 For testing problemsFileName.json from problems folder:
@@ -23,6 +19,7 @@ Generate new problems by running:
 # References:
 ## [Lecture 17: Interior Point Methods](https://www.cs.princeton.edu/courses/archive/fall18/cos521/Lectures/lec17.pdf)
 ## [Lecture 17 — October 28, 2014](http://people.seas.harvard.edu/~cs224/fall14/lec/lec17.pdf)
+## [Primal Path Following Interior Point Methods](https://nisheethvishnoi.files.wordpress.com/2018/05/lecture71.pdf)
 
 ### Other links:
 #### [Introduction to Interior Point Methods](https://www.tu-ilmenau.de/fileadmin/Bereiche/IA/prozessoptimierung/vorlesungsskripte/abebe_geletu/IPM_Slides.pdf)
@@ -33,4 +30,6 @@ Generate new problems by running:
 #### [Interior-Point Methods for Linear Optimization](http://s3.amazonaws.com/mitsloan-php/wp-faculty/sites/30/2016/12/15031751/Interior-Point-Methods-for-Linear-Optimization.pdf)
 #### [Chapter 10 Interior-Point Methods for Linear Programming](https://people.inf.ethz.ch/fukudak/lect/opt2011/aopt11note4.pdf)
 #### [Interior Methods for Nonlinear Optimization∗](https://people.kth.se/~andersf/doc/sirev41494.pdf)
+#### [Crash Start of Interior Point Methods](https://www.maths.ed.ac.uk/~gondzio/reports/ipmCrash.pdf)
+#### [Chapter 11 Interior-point methods](https://www.math.uwaterloo.ca/~hwolkowi/henry/reports/talks.d/t06talks.d/06msribirs.d/summercoursemsri07.d/intptbookpgs.pdf)
 #### [C_fakepathOptimal_Abdullayev(muh)_(2022_Umumi).docx](http://lms.adnsu.az/adnsuEducation/upl?neuron=932FC97AD7D41A63484CAB8B43699CEF&action=downloadDocument&fileId=1493847)
