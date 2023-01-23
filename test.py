@@ -89,21 +89,29 @@ def test_goal_problems(problems_file_name):
         A = problem["A_eq"]
         b = problem["b_eq"]
 
-        j = 0
-        while True:
-            if j == 5:
-                result = None
-                break
-
-            result = goal(A, b).x
-
-            if abs(sum([[sum([A[o][l]*result[l] for l in range(len(result))]) for o in range(len(A))][k] - b[k] for k in range(len(b))]))/len(b) < 0.1:
-                count += 1
-                break
-
-            j += 1
+        result = goal(A, b).x
         
-        print(result)
+        summes = [0 for _ in range(len(b))]
+        for j in range(len(b)):
+            for k in range(len(result)):
+                summes[j] += A[j][k] * result[k]
+            if (abs(summes[j] - b[j]) > 0.01):
+                count += 1
+                # print(i)
+                # print(*summes[:j+1])
+                # print(*b)
+                # print()
+                break
+        
+        print(*summes)
+        print(*b)
+        print()
+
+        # print([sum[i] - b[i] for i in range(len(b) - len(A[0]))])
+        # if abs(sum([[sum([A[o][l]*result[l] for l in range(len(result))]) for o in range(len(A))][k] - b[k] for k in range(len(b))]))/len(b) < 0.1:
+        #     count += 1
+        
+        # print(result)
     
     print(count)
 
